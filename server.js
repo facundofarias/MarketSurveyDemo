@@ -14,3 +14,14 @@ server.pack.require({ lout: { endpoint: '/docs' } }, function (err) {
 server.addRoutes(routes);
 
 server.start();
+
+console.log("Server started at: http://localhost:8080/ ");
+
+server.on('request', function (request, event, tags) {
+
+    console.log(request.path);
+
+    if (tags.error) {
+        console.log(event);
+    }
+});

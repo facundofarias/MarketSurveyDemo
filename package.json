@@ -1,15 +1,20 @@
-
 {
     "name": "MarketSurveyAPI",
+    "description": "Market Survey RESTUful API built by using Hapijs",
     "version": "0.0.1",
     "main": "server",
+    "scripts": {
+        "test": "node test/surveysTests.js"
+    },
     "engines": {
         "node": ">=0.10.5"
     },
     "dependencies": {
         "hapi": "1.8.x",
         "lout": "0.4.x",
-        "handlebars": "1.0.x"
+        "handlebars": "1.0.x",
+        "specify": "~1.1.x",
+        "request": "~2.21.x"
     },
     "private": "true"
 }

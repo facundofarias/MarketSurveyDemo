@@ -6,24 +6,22 @@ var idx = lunr(function () {
     this.field('company');
     this.field('about');
     this.field('target_group_desc');
-    this.field('channel');
-    this.field('organisation');
-    this.field('registration_type');
-    this.field('method');
-});
+    this.field('channel', {boost: 10});
+    this.field('organisation', {boost: 10});
+    this.field('registration_type', {boost: 10});
+    this.field('method', {boost: 10});
+})
 
-function parseJson(feed)
-{
-    feed.forEach(function (entry) {
-        idx.add(entry);
-    });
+var searchEngine = {
+    parseData: function(data) {
+        data.forEach(function (entry) {
+            idx.add(entry);
+        });
+    },
+    search: function(textToSearch) {
+        return idx.search(textToSearch);
+    }
 }
 
-function search(text)
-{
-    return idx.search(text);
-}
-
-
-
+module.exports = searchEngine;
 

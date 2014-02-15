@@ -1,0 +1,40 @@
+// JSON Generator to be used on: http://www.json-generator.com/
+
+[
+    '{{repeat(999, 9999)}}',
+    {
+        id: '{{index}}',
+        guid: '{{guid}}',
+        isActive: '{{bool}}',
+        description: '{{lorem(25, words)}}',
+        company: '{{company}}',
+        email: '{{email}}',
+        phone: '+1 {{phone}}',
+        address: '{{numeric(100,999)}} {{street}}, {{city}}, {{state}}, {{numeric(100,10000)}}',
+        country: '{{country}}',
+        about: '{{lorem(1,paragraphs)}}',
+        sample_size: '{{numeric(1000,9999)}}',
+        target_group_desc: '{{lorem(10, words)}}',
+        channel: function(idx) {
+            var choices = ['Phone', 'PDA', 'Paper', 'Web', 'Capi'];
+            return choices[this.numeric(0, choices.length - 1)];
+        },
+        organisation: function(idx) {
+            var choices = ['Omnibus','ad-hoc', 'syndicated'];
+            return choices[this.numeric(0, choices.length - 1)];
+        },
+        registration_type: function(idx) {
+            var choices = ['Self completion','F2F interview','Group discussion','observation','registration'];
+            return choices[this.numeric(0, choices.length - 1)];
+        },
+        method: function(idx) {
+            var choices = ['qualitative','quantitative'];
+            return choices[this.numeric(0, choices.length - 1)];
+        },
+        time_series: '{{bool}}',
+        tags: [
+            '{{repeat(7)}}',
+            '{{lorem(1)}}'
+        ]
+    }
+]

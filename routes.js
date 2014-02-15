@@ -1,3 +1,4 @@
+var utils = require('./utils');
 var Types = require('hapi').types;
 
 module.exports = [
@@ -5,16 +6,7 @@ module.exports = [
     { method: 'GET', path: '/surveys/{id}', config: { handler: getMarketSurvey } }
 ];
 
-var surveys = [
-    {
-        id: 1,
-        name: 'Sample Survey 1'
-    },
-    {
-        id: 2,
-        name: 'Sample Survey 2'
-    }
-];
+var surveys = utils.readSurveyMarketJson();
 
 function getMarketSurveys(request) {
 

@@ -7,12 +7,6 @@ var PORT = 8080;
 
 var config = { };
 var server = new hapi.Server(URL, PORT, config);
-server.pack.require({ lout: { endpoint: '/docs' } }, function (err) {
-
-    if (err) {
-        console.log('Failed loading plugins');
-    }
-});
 
 server.addRoutes(routes);
 

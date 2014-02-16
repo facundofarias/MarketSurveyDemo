@@ -3,7 +3,13 @@ var fs = require('fs');
 var utils =
 {
     readSurveyMarketJson: function() {
-        var data = fs.readFileSync('./resources/SurveyMarket.json', 'utf8');
+        // Using the min version just for performance, keeping the old one for debug reasons
+        var data = fs.readFileSync('./resources/SurveyMarketMin.json', 'utf8');
+        return JSON.parse(data);
+    },
+    readSurveyMarketDataJson: function() {
+        // Using the min version just for performance, keeping the old one for debug reasons
+        var data = fs.readFileSync('./resources/SurveyMarketDataMin.json', 'utf8');
         return JSON.parse(data);
     }
 }

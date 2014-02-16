@@ -1,0 +1,35 @@
+[
+    '{{repeat(999, 9999)}}',
+    {
+        id: '{{index}}',
+        survey_id: '{{numeric(99, 999, 0)}}',
+        picture: 'http://placehold.it/32x32',
+        age: '{{numeric(18,60)}}',
+        name: '{{firstName}} {{surname}}',
+        gender: '{{gender}}',
+        email: '{{email}}',
+        phone: '+1 {{phone}}',
+        address: '{{numeric(100,999)}} {{street}}, {{city}}, {{state}}, {{numeric(100,10000)}}',
+        country: '{{country}}',
+        survey_date: '{{date(YYYY-MM-ddThh:mm:ss Z)}}',
+        questionnaire: {
+            id: '{{index}}',
+            description: '{{lorem(10, words)}}',
+            question: [
+                '{{repeat(1,10)}}',
+                {
+                    id: '{{index}}',
+                    question: '{{lorem(5, words)}}+?',
+                    type: function(idx) {
+                        var choices = ['single answer','multi answer','multiple choice','closed','open'];
+                        return choices[this.numeric(0, choices.length - 1)];
+                    },
+                    answer: function(idx) {
+                        var choices = ['always','very often','fairly often','sometimes','almost never','never','strongly agree','agree','neither agree nor disagree','disagree','strongly disagree','none', 'very mild','mild','moderate','severe','excellent','good','fair','poor','very poor','yes','no','maybe'];
+                        return choices[this.numeric(0, choices.length - 1)];
+                    }
+                }
+            ]
+       }
+    }
+]

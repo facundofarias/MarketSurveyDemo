@@ -15,8 +15,7 @@
         "handlebars": "1.0.x",
         "specify": "~1.1.x",
         "request": "~2.21.x",
-        "lunr": "~0.4.4",
-        "fs": ""
-    },
+        "lunr": "~0.4.4"
+     },
     "private": "true"
 }

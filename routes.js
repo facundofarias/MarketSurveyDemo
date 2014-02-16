@@ -12,10 +12,16 @@ module.exports = [
     { method: 'GET', path: '/surveys/organisation/{organisation}', config: { handler: getMarketSurveyByOrganisation } },
     { method: 'GET', path: '/surveys/registrationType/{registration_type}', config: { handler: getMarketSurveyByRegistrationType } },
     { method: 'GET', path: '/surveys/method/{method}', config: { handler: getMarketSurveyByMethod } },
-    { method: 'GET', path: '/surveys/search/{query}', config: { handler: searchSurveys } }
+    { method: 'GET', path: '/surveys/search/{query}', config: { handler: searchSurveys } },
+    { method: 'GET', path: '/surveys/{id}/data', config: { handler: getMarketSurveyDataById } }
 ];
 
 var surveys = utils.readSurveyMarketJson();
+//console.log("loaded data: " + JSON.stringify(surveys));
+
+var surveysData = utils.readSurveyMarketDataJson();
+console.log("loaded data: " + JSON.stringify(surveysData));
+
 searchEngine.parseData(surveys);
 
 function getMarketSurveys(request) {
@@ -104,4 +110,12 @@ function searchSurveys(request) {
         result.push(survey);
     });
     request.reply(result);
+}
+
+function getMarketSurveyDataById(request) {
+    var surveysInfo = surveysData.filter(function(p) {
+        return parseInt(p.survey_id) === parseInt(request.params.id);
+    });
+
+    request.reply(surveysInfo);
 }

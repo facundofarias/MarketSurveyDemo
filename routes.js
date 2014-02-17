@@ -59,7 +59,8 @@ function getMarketSurveyById(request, reply) {
         return p.id === parseInt(request.params.id);
     }).pop();
 
-    survey.results = 'http://' + request.info.host + request.path + '/data';
+    if (survey)
+        survey.results = 'http://' + request.info.host + request.path + '/data';
 
     reply(survey);
 }

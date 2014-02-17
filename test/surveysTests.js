@@ -26,6 +26,25 @@ specify('getSurveysById', function(assert){
     });
 });
 
+specify('getSurveysResultsById', function(assert){
+    var survey_id = 198;
+    var get = { uri: 'http://localhost:8080/surveys/' + survey_id + '/data', json: true };
+    request(get, function (err, resp, body) {
+        assert.equal(err, null);
+        assert.equal(resp.statusCode, 200);
+        assert.ok(body.length > 0);
+        assert.equal(body[0].age, 52);
+        assert.equal(body[0].name, 'Odessa Macdonald');
+        assert.equal(body[0].address, '285 Ryerson Street, Fairforest, Arkansas, 9156');
+        assert.equal(body[0].questionnaire.id, 1328);
+        assert.ok(body[0].questionnaire.question.length > 0)
+        assert.equal(body[0].questionnaire.question[0].type, 'single answer');
+        assert.equal(body[0].questionnaire.question[0].answer, 'neither agree nor disagree');
+        assert.equal(body[0].questionnaire.question[0].id, 0);
+    });
+});
+
+
 specify('getSurveysByCompany', function(assert){
     var company = 'Omatom';
     var get = { uri: 'http://localhost:8080/surveys/company/' + company, json: true };

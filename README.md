@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Market Surveys Availability API
 ===============================
 
@@ -79,3 +80,9 @@ Hints ❤
 * * *
 
 Have fun!
+=======
+MarketSurveyDemo
+================
+
+Market Survey - Made with Hapi, Lunr and Jade
+>>>>>>> f8fa36e1fa946d3df74ff5a2805adcd35aed6098

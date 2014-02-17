@@ -20,7 +20,7 @@ var surveys = utils.readSurveyMarketJson();
 //console.log("loaded data: " + JSON.stringify(surveys));
 
 var surveysData = utils.readSurveyMarketDataJson();
-console.log("loaded data: " + JSON.stringify(surveysData));
+//console.log("loaded data: " + JSON.stringify(surveysData));
 
 searchEngine.parseData(surveys);
 
@@ -45,6 +45,8 @@ function getMarketSurveyById(request) {
     var survey = surveys.filter(function(p) {
         return p.id === parseInt(request.params.id);
     }).pop();
+
+    survey.results = 'http://' + request.info.host + request.path + '/data';
 
     request.reply(survey);
 }

@@ -1,7 +1,7 @@
 // JSON Generator to be used on: http://www.json-generator.com/
 
 [
-    '{{repeat(999, 9999)}}',
+    '{{repeat(99, 999)}}',
     {
         id: '{{index}}',
         guid: '{{guid}}',

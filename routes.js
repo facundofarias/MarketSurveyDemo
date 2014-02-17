@@ -2,35 +2,48 @@ var utils = require('./utils');
 var searchEngine = require('./lunr');
 var Types = require('hapi').types;
 
-module.exports = [
-    // Requests to handle the Markey Survey "catalog"
-    { method: 'GET', path: '/surveys', config: { handler: getMarketSurveys, validate: { query: { name: Types.String() } } } },
-    { method: 'GET', path: '/surveys/{id}', config: { handler: getMarketSurveyById } },
-    { method: 'GET', path: '/surveys/company/{companyName}', config: { handler: getMarketSurveyByCompanyName } },
-    { method: 'GET', path: '/surveys/country/{country}', config: { handler: getMarketSurveyByCountry } },
-    { method: 'GET', path: '/surveys/channel/{channel}', config: { handler: getMarketSurveyByChannel } },
-    { method: 'GET', path: '/surveys/organisation/{organisation}', config: { handler: getMarketSurveyByOrganisation } },
-    { method: 'GET', path: '/surveys/registrationType/{registration_type}', config: { handler: getMarketSurveyByRegistrationType } },
-    { method: 'GET', path: '/surveys/method/{method}', config: { handler: getMarketSurveyByMethod } },
-    { method: 'GET', path: '/surveys/search/{query}', config: { handler: searchSurveys } },
-    { method: 'GET', path: '/surveys/{id}/data', config: { handler: getMarketSurveyDataById } }
+var routesDict = {};
+routesDict.root=                       '/';
+routesDict.surveys=                    '/surveys';
+routesDict.surveysById=                '/surveys/{id}';
+routesDict.surveysByCompany=           '/surveys/company/{companyName}';
+routesDict.surveysByCountry=           '/surveys/country/{country}';
+routesDict.surveysByChannel=           '/surveys/channel/{channel}';
+routesDict.surveysByOrganisation=      '/surveys/organisation/{organisation}';
+routesDict.surveysByRegistrationType=  '/surveys/registrationType/{registration_type}';
+routesDict.surveysByMethod=            '/surveys/method/{method}';
+routesDict.surveysSearch=              '/surveys/search/{query}';
+routesDict.surveysData=                '/surveys/{id}/data';
+
+var routes = [
+    { method: 'GET', path: routesDict['root'], config: { handler: rootHandler } },
+    { method: 'GET', path: routesDict['surveys'], config: { handler: getMarketSurveys, validate: { query: { name: Types.String() } } } },
+    { method: 'GET', path: routesDict['surveysById'], config: { handler: getMarketSurveyById } },
+    { method: 'GET', path: routesDict['surveysByCompany'], config: { handler: getMarketSurveyByCompanyName } },
+    { method: 'GET', path: routesDict['surveysByCountry'], config: { handler: getMarketSurveyByCountry } },
+    { method: 'GET', path: routesDict['surveysByChannel'], config: { handler: getMarketSurveyByChannel } },
+    { method: 'GET', path: routesDict['surveysByOrganisation'], config: { handler: getMarketSurveyByOrganisation } },
+    { method: 'GET', path: routesDict['surveysByRegistrationType'], config: { handler: getMarketSurveyByRegistrationType } },
+    { method: 'GET', path: routesDict['surveysByMethod'], config: { handler: getMarketSurveyByMethod } },
+    { method: 'GET', path: routesDict['surveysSearch'], config: { handler: searchSurveys } },
+    { method: 'GET', path: routesDict['surveysData'], config: { handler: getMarketSurveyDataById } }
 ];
 
 var surveys = utils.readSurveyMarketJson();
-//console.log("loaded data: " + JSON.stringify(surveys));
+//console.log('loaded data: ' + JSON.stringify(surveys));
 
 var surveysData = utils.readSurveyMarketDataJson();
-//console.log("loaded data: " + JSON.stringify(surveysData));
+//console.log('loaded data: ' + JSON.stringify(surveysData));
 
 searchEngine.parseData(surveys);
 
-function getMarketSurveys(request) {
+function getMarketSurveys(request, reply) {
 
     if (request.query.name) {
-        request.reply(findSurveys(request.query.name));
+        reply(findSurveys(request.query.name));
     }
     else {
-        request.reply(surveys);
+        reply(surveys);
     }
 }
 
@@ -41,65 +54,65 @@ function findSurveys(name) {
     });
 }
 
-function getMarketSurveyById(request) {
+function getMarketSurveyById(request, reply) {
     var survey = surveys.filter(function(p) {
         return p.id === parseInt(request.params.id);
     }).pop();
 
     survey.results = 'http://' + request.info.host + request.path + '/data';
 
-    request.reply(survey);
+    reply(survey);
 }
 
-function getMarketSurveyByCompanyName(request) {
+function getMarketSurveyByCompanyName(request, reply) {
     var survey = surveys.filter(function(p) {
         return p.company === request.params.companyName;
     });
 
-    request.reply(survey);
+    reply(survey);
 }
 
-function getMarketSurveyByCountry(request) {
+function getMarketSurveyByCountry(request, reply) {
     var survey = surveys.filter(function(p) {
         return p.country === request.params.country;
     });
 
-    request.reply(survey);
+    reply(survey);
 }
 
-function getMarketSurveyByChannel(request) {
+function getMarketSurveyByChannel(request, reply) {
     var survey = surveys.filter(function(p) {
         return p.channel === request.params.channel;
     });
 
-    request.reply(survey);
+    reply(survey);
 }
 
-function getMarketSurveyByOrganisation(request) {
+function getMarketSurveyByOrganisation(request, reply) {
     var survey = surveys.filter(function(p) {
         return p.organisation === request.params.organisation;
     });
 
-    request.reply(survey);
+    reply(survey);
 }
 
-function getMarketSurveyByRegistrationType(request) {
+function getMarketSurveyByRegistrationType(request, reply) {
     var survey = surveys.filter(function(p) {
         return p.registration_type === request.params.registration_type;
     });
 
-    request.reply(survey);
+    reply(survey);
 }
 
-function getMarketSurveyByMethod(request) {
+function getMarketSurveyByMethod(request, reply) {
     var survey = surveys.filter(function(p) {
         return p.method === request.params.method;
     });
 
-    request.reply(survey);
+    reply(survey);
 }
 
-function searchSurveys(request) {
+function searchSurveys(request, reply) {
     var textToSearch = request.params.query;
     var searchResult = searchEngine.search(textToSearch);
     var result = new Array();
@@ -111,13 +124,31 @@ function searchSurveys(request) {
         }).pop();
         result.push(survey);
     });
-    request.reply(result);
+    reply(result);
 }
 
-function getMarketSurveyDataById(request) {
+function getMarketSurveyDataById(request, reply) {
     var surveysInfo = surveysData.filter(function(p) {
         return parseInt(p.survey_id) === parseInt(request.params.id);
     });
 
-    request.reply(surveysInfo);
+    reply(surveysInfo);
 }
+
+function rootHandler(request, reply) {
+    reply.view('index.jade', {
+        title: 'Welcome to Market Survey REST API Doc',
+        surveys: routesDict['surveys'],
+        surveysById: routesDict['surveysById'],
+        surveysByCompany: routesDict['surveysByCompany'],
+        surveysByCountry: routesDict['surveysByCountry'],
+        surveysByChannel: routesDict['surveysByChannel'],
+        surveysByOrganisation: routesDict['surveysByOrganisation'],
+        surveysByRegistrationType: routesDict['surveysByRegistrationType'],
+        surveysByMethod: routesDict['surveysByMethod'],
+        surveysSearch: routesDict['surveysSearch'],
+        surveysData: routesDict['surveysData']
+    });
+};
+
+module.exports = routes;

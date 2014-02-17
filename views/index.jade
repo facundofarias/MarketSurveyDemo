@@ -2,6 +2,32 @@ doctype html
 html
     head
         title= title
+        script(src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js")
+        link(rel="stylesheet",type="text/css",href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css")
+        link(rel="stylesheet",type="text/css",href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css")
     body
         div.header
             h1= title
+            span Make sure that you check the parameters on each API call
+            br
+        div.form
+            div.article
+                a(href=surveys) Get all market surveys
+            div.article
+                a(href=surveysById) Get market survey by Id
+            div.article
+                a(href=surveysByCompany) Get market survey by Company
+            div.article
+                a(href=surveysByCountry) Get market survey by Country
+            div.article
+                a(href=surveysByChannel) Get market survey by Channel
+            div.article
+                a(href=surveysByOrganisation) Get market survey by Organisation
+            div.article
+                a(href=surveysByRegistrationType) Get market survey by Registration Type
+            div.article
+                a(href=surveysByMethod) Get market survey by Method
+            div.article
+                a(href=surveysSearch) Search Market Surveys
+            div.article
+                a(href=surveysData) Get market survey Results

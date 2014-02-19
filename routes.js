@@ -29,13 +29,23 @@ var routes = [
     { method: 'GET', path: routesDict['surveysData'], config: { handler: getMarketSurveyDataById } }
 ];
 
-var surveys = utils.readSurveyMarketJson();
-//console.log('loaded data: ' + JSON.stringify(surveys));
+var internalData = {
+    surveys: [],
 
-var surveysData = utils.readSurveyMarketDataJson();
-//console.log('loaded data: ' + JSON.stringify(surveysData));
+    surveysData: [],
 
-searchEngine.parseData(surveys);
+    setSurveys: function(surveys)
+    {
+        this.surveys = surveys;
+    },
+    setSurveysData: function(surveysData)
+    {
+        this.surveysData = surveysData;
+    }
+}
+
+utils.readSurveyMarketJson();
+utils.readSurveyMarketDataJson();
 
 function getMarketSurveys(request, reply) {
 
@@ -43,19 +53,18 @@ function getMarketSurveys(request, reply) {
         reply(findSurveys(request.query.name));
     }
     else {
-        reply(surveys);
+        reply(internalData.surveys);
     }
 }
 
 function findSurveys(name) {
-
-    return surveys.filter(function(survey) {
+    return internalData.surveys.filter(function(survey) {
         return survey.name.toLowerCase() === name.toLowerCase();
     });
 }
 
 function getMarketSurveyById(request, reply) {
-    var survey = surveys.filter(function(p) {
+    var survey = internalData.surveys.filter(function(p) {
         return p.id === parseInt(request.params.id);
     }).pop();
 
@@ -66,7 +75,7 @@ function getMarketSurveyById(request, reply) {
 }
 
 function getMarketSurveyByCompanyName(request, reply) {
-    var survey = surveys.filter(function(p) {
+    var survey = internalData.surveys.filter(function(p) {
         return p.company === request.params.companyName;
     });
 
@@ -74,7 +83,7 @@ function getMarketSurveyByCompanyName(request, reply) {
 }
 
 function getMarketSurveyByCountry(request, reply) {
-    var survey = surveys.filter(function(p) {
+    var survey = internalData.surveys.filter(function(p) {
         return p.country === request.params.country;
     });
 
@@ -82,7 +91,7 @@ function getMarketSurveyByCountry(request, reply) {
 }
 
 function getMarketSurveyByChannel(request, reply) {
-    var survey = surveys.filter(function(p) {
+    var survey = internalData.surveys.filter(function(p) {
         return p.channel === request.params.channel;
     });
 
@@ -90,7 +99,7 @@ function getMarketSurveyByChannel(request, reply) {
 }
 
 function getMarketSurveyByOrganisation(request, reply) {
-    var survey = surveys.filter(function(p) {
+    var survey = internalData.surveys.filter(function(p) {
         return p.organisation === request.params.organisation;
     });
 
@@ -98,7 +107,7 @@ function getMarketSurveyByOrganisation(request, reply) {
 }
 
 function getMarketSurveyByRegistrationType(request, reply) {
-    var survey = surveys.filter(function(p) {
+    var survey = internalData.surveys.filter(function(p) {
         return p.registration_type === request.params.registration_type;
     });
 
@@ -106,7 +115,7 @@ function getMarketSurveyByRegistrationType(request, reply) {
 }
 
 function getMarketSurveyByMethod(request, reply) {
-    var survey = surveys.filter(function(p) {
+    var survey = internalData.surveys.filter(function(p) {
         return p.method === request.params.method;
     });
 
@@ -120,7 +129,7 @@ function searchSurveys(request, reply) {
     searchResult.forEach(function (entry) {
         var survey = new Object();
         survey.score = entry.score;
-        survey.data = surveys.filter(function(p) {
+        survey.data = internalData.surveys.filter(function(p) {
             return p.id === parseInt(entry.ref);
         }).pop();
         result.push(survey);
@@ -129,7 +138,7 @@ function searchSurveys(request, reply) {
 }
 
 function getMarketSurveyDataById(request, reply) {
-    var surveysInfo = surveysData.filter(function(p) {
+    var surveysInfo = internalData.surveysData.filter(function(p) {
         return parseInt(p.survey_id) === parseInt(request.params.id);
     });
 
@@ -152,4 +161,5 @@ function rootHandler(request, reply) {
     });
 };
 
-module.exports = routes;
+module.exports.routes = routes;
+module.exports.surveys = internalData;

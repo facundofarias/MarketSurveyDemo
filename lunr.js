@@ -14,6 +14,7 @@ var idx = lunr(function () {
 
 var searchEngine = {
     parseData: function(data) {
+        console.log('Indexing data..');
         data.forEach(function (entry) {
             idx.add(entry);
         });

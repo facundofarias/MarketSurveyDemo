@@ -1,18 +1,25 @@
-var fs = require('fs');
+var FS = require('q-io/fs');
+var routes = require('./routes');
+var searchEngine = require('./lunr');
 
 var utils =
 {
     readSurveyMarketJson: function() {
-        // Using the min version just for performance, keeping the old one for debug reasons
-        var data = fs.readFileSync('./resources/SurveyMarketMin.json', 'utf8');
-        console.log('SurveyMarketMin.json');
-        return JSON.parse(data);
+        FS.read('./resources/SurveyMarketMin.json')
+            .then(function (content) {
+                console.log('Processing promise: Loaded SurveyMarketMin.json');
+                var Parsedsurveys = JSON.parse(content);
+                routes.surveys.setSurveys(Parsedsurveys);
+                searchEngine.parseData(Parsedsurveys);
+            });
     },
+
     readSurveyMarketDataJson: function() {
-        // Using the min version just for performance, keeping the old one for debug reasons
-        var data = fs.readFileSync('./resources/SurveyMarketDataMin.json', 'utf8');
-        console.log('SurveyMarketDataMin.json');
-        return JSON.parse(data);
+        FS.read('./resources/SurveyMarketDataMin.json')
+            .then(function (content) {
+                console.log('Processing promise: Loaded SurveyMarketDataMin.json');
+                routes.surveys.setSurveysData(JSON.parse(content));
+            });
     }
 }
 

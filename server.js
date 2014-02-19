@@ -15,7 +15,7 @@ var options = {
 
 var server = new hapi.Server(process.env.app_port | PORT, options);
 
-server.route(routes);
+server.route(routes.routes);
 
 server.start();
 console.log("Server started at " + server.info.uri);

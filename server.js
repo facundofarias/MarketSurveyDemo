@@ -15,11 +15,10 @@ var options = {
 
 var server = new hapi.Server(process.env.PORT | PORT, options);
 
-server.route(routes.routes);
-
 server.start();
 console.log("Server started at " + server.info.uri);
 
+server.route(routes.routes);
 server.on('response', function (response, event, tags) {
     console.log('Sending response of: ' + response.path);
 });

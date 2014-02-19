@@ -1,10 +1,12 @@
 {
-    "name": "MarketSurveyAPI",
+    "name": "MarketSurvey",
+    "subdomain": "MarketSurvey",
     "description": "Market Survey RESTUful API built by using Hapijs, Lunr and Jade",
     "version": "0.0.1",
     "main": "server",
     "scripts": {
-        "test": "node test/surveysTests.js"
+        "test": "node test/surveysTests.js",
+	"start": "node server.js"
     },
     "engines": {
         "node": ">=0.10.5"

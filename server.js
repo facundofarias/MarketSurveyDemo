@@ -13,7 +13,7 @@ var options = {
     }
 };
 
-var server = new hapi.Server(process.env.app_port | PORT, options);
+var server = new hapi.Server(process.env.PORT | PORT, options);
 
 server.route(routes.routes);
 

@@ -1,7 +1,7 @@
 var hapi = require('hapi');
 var routes = require('./routes');
 
-var PORT = 8080;
+var PORT = 9664;
 
 var options = {
     views: {
@@ -13,7 +13,7 @@ var options = {
     }
 };
 
-var server = new hapi.Server(process.env.PORT | PORT, options);
+var server = new hapi.Server(process.env.app_host, process.env.app_port | PORT, options);
 
 server.start();
 console.log("Server started at " + server.info.uri);

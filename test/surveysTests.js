@@ -1,8 +1,10 @@
 var specify = require('specify');
 var request = require('request');
 
+
+
 specify('getSurveys', function(assert){
-    var get = { uri: 'http://localhost:8080/surveys', json: true };
+    var get = { uri: 'http://localhost:9664/surveys', json: true };
     request(get, function (err, resp, body) {
         assert.equal(err, null);
         assert.equal(resp.statusCode, 200);
@@ -12,7 +14,7 @@ specify('getSurveys', function(assert){
 
 specify('getSurveysById', function(assert){
     var survey_id = 12;
-    var get = { uri: 'http://localhost:8080/surveys/' + survey_id, json: true };
+    var get = { uri: 'http://localhost:9664/surveys/' + survey_id, json: true };
     request(get, function (err, resp, body) {
         assert.equal(err, null);
         assert.equal(resp.statusCode, 200);
@@ -28,7 +30,7 @@ specify('getSurveysById', function(assert){
 
 specify('getSurveysResultsById', function(assert){
     var survey_id = 198;
-    var get = { uri: 'http://localhost:8080/surveys/' + survey_id + '/data', json: true };
+    var get = { uri: 'http://localhost:9664/surveys/' + survey_id + '/data', json: true };
     request(get, function (err, resp, body) {
         assert.equal(err, null);
         assert.equal(resp.statusCode, 200);
@@ -47,7 +49,7 @@ specify('getSurveysResultsById', function(assert){
 
 specify('getSurveysByCompany', function(assert){
     var company = 'Omatom';
-    var get = { uri: 'http://localhost:8080/surveys/company/' + company, json: true };
+    var get = { uri: 'http://localhost:9664/surveys/company/' + company, json: true };
     request(get, function (err, resp, body) {
         assert.equal(err, null);
         assert.equal(resp.statusCode, 200);
@@ -58,7 +60,7 @@ specify('getSurveysByCompany', function(assert){
 
 specify('getSurveysByCountry', function(assert){
     var country = 'Barbados';
-    var get = { uri: 'http://localhost:8080/surveys/country/' + country, json: true };
+    var get = { uri: 'http://localhost:9664/surveys/country/' + country, json: true };
     request(get, function (err, resp, body) {
         assert.equal(err, null);
         assert.equal(resp.statusCode, 200);
@@ -70,7 +72,7 @@ specify('getSurveysByCountry', function(assert){
 
 specify('getSurveysByChannel', function(assert){
     var channel = 'Paper';
-    var get = { uri: 'http://localhost:8080/surveys/channel/' + channel, json: true };
+    var get = { uri: 'http://localhost:9664/surveys/channel/' + channel, json: true };
     request(get, function (err, resp, body) {
         assert.equal(err, null);
         assert.equal(resp.statusCode, 200);
@@ -81,7 +83,7 @@ specify('getSurveysByChannel', function(assert){
 
 specify('getSurveysByOrganisation', function(assert){
     var organisation = 'syndicated';
-    var get = { uri: 'http://localhost:8080/surveys/organisation/' + organisation, json: true };
+    var get = { uri: 'http://localhost:9664/surveys/organisation/' + organisation, json: true };
     request(get, function (err, resp, body) {
         assert.equal(err, null);
         assert.equal(resp.statusCode, 200);
@@ -92,7 +94,7 @@ specify('getSurveysByOrganisation', function(assert){
 
 specify('getSurveysByRegistrationType', function(assert){
     var registration_type = 'registration';
-    var get = { uri: 'http://localhost:8080/surveys/registrationType/' + registration_type, json: true };
+    var get = { uri: 'http://localhost:9664/surveys/registrationType/' + registration_type, json: true };
     request(get, function (err, resp, body) {
         assert.equal(err, null);
         assert.equal(resp.statusCode, 200);
@@ -103,7 +105,7 @@ specify('getSurveysByRegistrationType', function(assert){
 
 specify('getSurveysByMethod', function(assert){
     var method = 'qualitative';
-    var get = { uri: 'http://localhost:8080/surveys/method/' + method, json: true };
+    var get = { uri: 'http://localhost:9664/surveys/method/' + method, json: true };
     request(get, function (err, resp, body) {
         assert.equal(err, null);
         assert.equal(resp.statusCode, 200);
@@ -114,7 +116,7 @@ specify('getSurveysByMethod', function(assert){
 
 specify('searchSurveys', function(assert){
     var query = 'Web';
-    var get = { uri: 'http://localhost:8080/surveys/search/' + query, json: true };
+    var get = { uri: 'http://localhost:9664/surveys/search/' + query, json: true };
     request(get, function (err, resp, body) {
         assert.equal(err, null);
         assert.equal(resp.statusCode, 200);

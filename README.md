@@ -26,3 +26,7 @@ Last but not least, I wanted to present the APIs with a very simple UI. So I dec
 Some last minute change was, while I am still trying to find a place where to deeploy this, change the sync calls into async, and for that I've used [**q-io**](https://github.com/kriskowal/q-io) simply by using promises. 
 
 You can take a look of the code in here. Feedback is welcomed :)
+
+##License
+
+[MIT License](http: //facundofarias.mit-license.org/) © Facundo Farias
